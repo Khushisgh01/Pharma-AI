@@ -10,15 +10,15 @@ function Sidebar(){
 
             {/* Middle Section: History */}
             <ul className="history">
-                <li>History 1: The Great Pyramid</li>
-                <li>History 2: CSS Flexbox Explained</li>
-                <li>History 3: Setting up a new React Project</li>
-                <li>History 4: A very long history item that needs an ellipsis</li>
+                <li>Thread 1: The Great Pyramid</li>
+                <li>Thread 2: CSS Flexbox Explained</li>
+                <li>Thread 3: Setting up a new React Project</li>
+                <li>Thread 4: A very long history item that needs an ellipsis</li>
             </ul>
 
             {/* Bottom Section: Sign/Footer */}
             <div className="sign">
-                <p>&hearts;</p>
+                <p>&hearts; Made with Love</p>
             </div>
         </section>
     )
