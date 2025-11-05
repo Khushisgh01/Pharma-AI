@@ -6,6 +6,12 @@ import { TfiCommentAlt } from "react-icons/tfi";
 function ChatWindow() {
   return (
     <>
+    <div className="navbar">
+      <span>Pharma AI</span>
+      <div className="userIconDiv">
+        <span className="userIcon"><i class="fa-solid fa-user"></i></span>
+      </div>
+    </div>
     <div className="heading">Welcome to Pharma AI</div>
     <div className="subheading">Transforming Pharmaceutical Research Through Agentic Intelligence</div>
     <div>
@@ -26,7 +32,8 @@ function ChatWindow() {
             <TfiCommentAlt size={20} />
           </button>
            <button className="icon-button file-upload-button">
-          <FiUpload size={20} />
+          {/* <FiUpload size={20} /> */}
+          <i class="fa-solid fa-paper-plane"></i>
         </button>
         </div>
         </div>
