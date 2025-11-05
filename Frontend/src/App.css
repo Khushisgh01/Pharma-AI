@@ -14,11 +14,43 @@ body {
   min-height: 100vh;
   width: 100%;
   
-  background: linear-gradient(
-    to bottom, 
-    #1F2035 0%,      
-    #3C2846 45%,    
-    #21282F 100%     
-  );
+  /* We stack multiple backgrounds using a comma.
+    They are layered from top (first) to bottom (last).
+  */
+  background-image: 
+    /* Layer 1: The first pink "wave" (top-left)
+      This is an ellipse positioned at 15% from the left and 30% from the top.
+      It's a semi-transparent pink that fades to nothing.
+    */
+    radial-gradient(
+      ellipse at 10% 20%, 
+      rgba(127, 31, 63, 0.145) 0%,  /* A semi-transparent pink */
+      transparent 50%             /* Fades out by 70% of its size */
+    ),
+    
+    /* Layer 2: The second pink "wave" (top-right)
+      This one is at 85% from the left and 40% from the top.
+    */
+    radial-gradient(
+      ellipse at 45% 40%, 
+      rgba(154, 58, 148, 0.25) 0%, /* A slightly more transparent pink */
+      transparent 70%
+    ),
+    
+    /* Layer 3: Your original base gradient
+      This covers the entire background.
+    */
+    linear-gradient(
+      to bottom, 
+      #1F2035 0%,       
+      #8856a1 45%,      
+      #21282F 100%      
+    );
+  
+  /* This ensures the gradients don't repeat and cover the 
+    whole element, which is good practice with multiple backgrounds.
+  */
+  background-repeat: no-repeat;
+  
   display: flex;
 }
