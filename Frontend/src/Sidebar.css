@@ -2,63 +2,147 @@
     background-color:rgba(14, 0, 13, 0.4);
     color: #b4b4b4;
     height: 100vh;
-    width: 320px;
+    width: 320px; /* Default width */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Crucial for pushing footer to the bottom */
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+    overflow-x: hidden; /* Hide horizontal scroll on collapse */
+    flex-shrink: 0;
+}
+
+/* ------------------- Collapsed State ------------------- */
+.sidebar.collapsed {
+    width: 80px; /* Minimized width */
+}
+
+/* ------------------- Top Actions (Header/New Chat/Search) ------------------- */
+
+.sidebar-header {
+    padding: 15px 20px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease-in-out; 
+    flex-shrink: 0; /* Prevents shrinking */
+}
+.sidebar.collapsed .sidebar-header {
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* New container for the New Chat and Search areas */
+.top-actions-container {
+    padding: 0 15px; /* Side padding for buttons */
+    flex-shrink: 0;
 }
 
 .button {
     display: flex;
-    justify-content: space-between; 
     align-items: center;
-    margin: 10px;
-    padding: 10px;
+    padding: 10px 15px;
+    margin-top: 5px; /* Slight top margin */
+    margin-bottom: 5px; /* Slight bottom margin */
     border-radius: 5px;
     background-color: transparent !important;
     border: solid 1px rgba(255, 255, 255, 0.5); 
     transition: all 0.3s ease-in-out; 
     cursor: pointer; 
+    justify-content: flex-start;
+    gap: 15px;
+    width: 100%; /* Ensure button takes full width of its container */
+}
+.new-chat-button {
+    margin-top: 10px; 
+}
+
+.sidebar.collapsed .button {
+    justify-content: center;
+    padding: 10px 0;
+    margin-left: 0; /* Adjusted margin for the new top-actions-container padding */
+    margin-right: 0;
+    border: solid 1px rgba(255, 255, 255, 0.5);
+}
+.sidebar.collapsed .top-actions-container {
+    padding: 0 10px; 
 }
 
 .button:hover {
-    
     background-color: rgba(0, 120, 255, 0.05) !important; 
     border: solid 1px rgba(201, 233, 249, 0.7);
     transform: translateY(-2px); 
     box-shadow: 0 4px 10px rgba(60, 145, 244, 0.3); 
 }
 
-.logo {
-    height: 25px;
-    width: 25px;
+.button span {
+    font-size: 18px;
+    color: white;
+    transition: color 0.3s ease-in-out;
+    flex-grow: 1; 
+    text-align: left;
+    white-space: nowrap;
 }
 
-.button span {
+.button i {
     font-size: 20px;
     color: white;
     transition: color 0.3s ease-in-out;
+    flex-shrink: 0;
 }
 
-.button:hover span {
+.button:hover span,
+.button:hover i {
     color: #daebf4;
+}
+
+.search-chats-text {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 5px 0 15px 0; 
+    font-size: 18px;
+    color: #b4b4b4;
+    cursor: pointer;
+    gap: 15px;
+    transition: color 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed .search-chats-text {
+    justify-content: center;
+    padding: 10px 0;
+    margin: 10px 0; 
+}
+
+.search-chats-text:hover {
+    color: white;
+}
+
+.search-chats-text i {
+    font-size: 20px;
+    flex-shrink: 0;
 }
 
 
 .history {
     list-style: none; 
-    padding: 0 10px;
-    margin-top: 20px; 
+    padding: 0 15px; 
+    margin-top: 0;
     flex-grow: 1; 
     overflow-y: auto;
-    margin:10px;
-    padding: 10px;
-    height:100%;
+    overflow-x: hidden;
+    padding-bottom: 10px; 
 }
+
+.sidebar.collapsed .history {
+    display: none; 
+}
+
 
 .history li {
     list-style: none;
-    padding: 5px 10px; /* Increased padding for better hit area */
+    padding: 8px 10px;
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
@@ -66,7 +150,6 @@
     margin-bottom: 0.5rem;
     font-size: 14px;
     border: solid 1px transparent; 
-    
     position: relative;
     border-radius: 4px;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border 0.2s ease-in-out; 
@@ -79,9 +162,39 @@
 }
 
 .sign {
-    padding: 10px;
-    margin :10px;
+    padding: 15px;
     text-align: center;
     font-size: 14px;
     border-top: solid 0.25px rgba(255,255,255,0.5);
+    flex-shrink: 0;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+}
+
+.settings-button {
+    border: none;
+    background: transparent !important;
+    padding: 5px; 
+    margin: 0;
+}
+
+.settings-button:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none;
+    transform: none;
+}
+
+.sidebar.collapsed .sign p {
+    display: none;
+}
+.sidebar.collapsed .settings-button {
+    padding: 5px; 
+}
+
+.sidebar.collapsed .settings-button span {
+    display: none;
 }

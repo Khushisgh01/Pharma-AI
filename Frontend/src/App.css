@@ -1,4 +1,3 @@
-
 body {
   margin: 0; 
   padding: 0;
@@ -19,7 +18,7 @@ body {
   */
   background-image: 
     /* Layer 1: The first pink "wave" (top-left)
-      This is an ellipse positioned at 15% from the left and 30% from the top.
+      This is an ellipse positioned at 10% from the left and 20% from the top.
       It's a semi-transparent pink that fades to nothing.
     */
     radial-gradient(
@@ -29,7 +28,7 @@ body {
     ),
     
     /* Layer 2: The second pink "wave" (top-right)
-      This one is at 85% from the left and 40% from the top.
+      This one is at 45% from the left and 40% from the top.
     */
     radial-gradient(
       ellipse at 45% 40%, 
@@ -53,4 +52,11 @@ body {
   background-repeat: no-repeat;
   
   display: flex;
+}
+
+/* ADDED: Class to handle when the sidebar is collapsed */
+/* This is primarily a placeholder for global adjustments if needed, 
+   but it's good practice to include the class that the JS applies. */
+.app.collapsed .chat-window {
+    /* Adjustments for the main content area when sidebar is minimized can go here */
 }
