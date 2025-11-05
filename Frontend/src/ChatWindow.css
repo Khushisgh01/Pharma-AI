@@ -1,0 +1,100 @@
+/* I've adjusted the original .chat-bar styles 
+  to be flexible and centered on the page for this demo.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+.heading{
+    text-align: center;
+    font-family: "Italiana", sans-serif;
+  font-weight: 400;
+    font-size: 64px;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    color: white;
+}
+.subheading{
+    margin: 30px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 23px;
+    position: absolute;
+    top: 28%;
+    left: 34%;
+    color: white;
+}
+.chat-bar {
+  display: flex; /* Arranges items in a row */
+  flex-direction: column;
+  
+  width: 90%; /* Use a relative width */
+  max-width: 800px; /* Set a max-width for large screens */
+  height: 20%; /* A more standard height for an input bar */
+  position:absolute;
+  /* Centering the bar on the page */
+  margin: 40px auto; 
+  bottom: 30%;
+  left: 35%;
+  /* Appearance */
+  background-color: rgba(0, 0, 0,0.4); /* Dark purple, sampled from your image */
+  border-radius: 12px; /* Rounded corners */
+  padding: 0 16px; /* Padding on the left and right */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Soft shadow */
+}
+
+/* This div holds the left icon group */
+.left-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Adds space *between* the icons */
+  margin-bottom: 10px;
+}
+
+/* This styles all icon buttons (both left and right) 
+*/
+.icon-button {
+  background: transparent; /* No background color */
+  border: none; /* No border */
+  cursor: pointer;
+  color: #9b9b9b; /* Muted color for icons */
+  padding: 8px; /* Makes the click area larger */
+  display: flex; /* Helps center the icon inside */
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6; /* Slightly faded look */
+  border-radius: 6px;
+  transition: all 0.2s ease; /* Smooth hover effect */
+}
+
+.icon-button:hover {
+  color: #ffffff; /* Bright white on hover */
+  opacity: 1; /* Fully opaque on hover */
+  background-color: rgba(255, 255, 255, 0.08); /* Faint background glow */
+}
+
+/* This is the key to the layout.
+  The input field will grow to fill all available space.
+*/
+.chat-input {
+  flex-grow: 1; /* Makes the input take up the remaining space */
+  background: transparent; /* Fully transparent background */
+  border: none; /* No border */
+  outline: none; /* No ugly blue glow on click */
+  
+  /* Text styling */
+  color: #ececec; /* Light text color for typing */
+  font-size: 1rem; /* 16px */
+  
+  /* Add space between icons and text */
+  padding: 0 12px; 
+}
+
+/* Style the placeholder text */
+.chat-input::placeholder {
+  color: #9b9b9b; /* Same as icon color */
+  opacity: 1; /* Ensure it's fully visible */
+}
+.file-upload-button {
+ position: relative;
+ left: 78%
+}
