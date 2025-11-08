@@ -225,3 +225,39 @@
   color: #9b9b9b;
   opacity: 1;
 }
+/* --- ADD THIS AT THE END OF Chat.css --- */
+
+/* Keyframes for the dot bounce */
+@keyframes bounce-dot {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Container for the dots */
+.thinking-dots {
+  display: flex;
+  padding: 5px 0; /* Add a little space */
+}
+
+/* Styling for each individual dot */
+.thinking-dots span {
+  font-size: 1.5rem; /* Make dots a bit bigger */
+  line-height: 1;
+  animation: bounce-dot 1.4s infinite;
+  animation-fill-mode: both;
+}
+
+/* Animation delays for each dot */
+.thinking-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+.thinking-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.thinking-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
