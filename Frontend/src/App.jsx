@@ -1,66 +1,82 @@
-import './App.css'
-import Sidebar from './Sidebar.jsx';
-import ChatWindow from './ChatWindow.jsx';
-import {MyContext} from "./MyContext.jsx";
-import ProfilePage from './ProfilePage.jsx'
-import { useState } from 'react'; // Import useState
+// Frontend/src/App.jsx
+
+import React, { useState } from "react";
+import "./App.css";
+
+import Sidebar from "./Sidebar.jsx";
+import ChatWindow from "./ChatWindow.jsx";
+import ProfilePage from "./ProfilePage.jsx";
+import MoleculeComparison from "./MoleculeComparison.jsx";
+
+import { MyContext } from "./MyContext.jsx";
 
 function App() {
+  /* --------------------------------------------
+     SIDEBAR STATE
+  --------------------------------------------- */
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const toggleSidebar = () => setIsSidebarCollapsed((prev) => !prev);
 
-  // State to manage sidebar collapse status
-  const [isCollapsed, setIsCollapsed] = useState(false); 
+  /* --------------------------------------------
+     PAGE VIEW STATE (chat | profile | molecule)
+  --------------------------------------------- */
+  const [currentView, setCurrentView] = useState("chat");
 
-  // Function to toggle the sidebar state
-  const toggleSidebar = () => {
-    setIsCollapsed(prev => !prev);
-  };
-
-  // State for chat functionality
+  /* --------------------------------------------
+     CHAT STATE (Fix for your error)
+     These MUST be provided to context
+  --------------------------------------------- */
   const [prompt, setPrompt] = useState("");
-  const [reply, setReply] = useState(null);
-  // MOVED: Message history state is moved from ChatWindow to App
-  const [messages, setMessages] = useState([]); 
-  const [currentView, setCurrentView] = useState("chat"); // 'chat' or 'profile'
+  const [messages, setMessages] = useState([]); // <== Important fix
 
-  // NEW FUNCTION: Resets all chat-related states
+  /* --------------------------------------------
+     NEW CHAT HANDLER
+  --------------------------------------------- */
   const newChat = () => {
-    setPrompt("");
-    setReply(null);
-    setMessages([]); 
-    setCurrentView("chat");
+    setMessages([]);   // Reset chat messages
+    setPrompt("");     // Clear user input
+    console.log("New chat session started");
   };
 
+  /* --------------------------------------------
+     CONTEXT OBJECT (All values exposed to children)
+  --------------------------------------------- */
+  const providerValues = {
+    // Sidebar state
+    isSidebarCollapsed,
+    toggleSidebar,
 
-  const providerValues={ 
-    isSidebarCollapsed: isCollapsed, 
-    toggleSidebar: toggleSidebar,     
-    // Pass chat state
+    // Chat values (Fix)
     prompt,
     setPrompt,
-    reply,
-    setReply,
-    // Pass message history and reset function
     messages,
     setMessages,
-    newChat, // Pass the new function
+
+    // Page navigation
     currentView,
-    setCurrentView
+    setCurrentView,
+
+    // New chat callback
+    newChat,
   };
-  
+
+  /* --------------------------------------------
+     RENDER
+  --------------------------------------------- */
   return (
-    // Apply a class name to the app wrapper based on the collapsed state
-    <div className={`app ${isCollapsed ? 'collapsed' : ''}`}> 
+    <div className={`app ${isSidebarCollapsed ? "collapsed" : ""}`}>
       <MyContext.Provider value={providerValues}>
-        <Sidebar></Sidebar>
-        {currentView === 'chat' ? (
-            <ChatWindow />
-        ) : (
-            <ProfilePage />
-        )}
+        <Sidebar />
+
+        {/* Main content container */}
+        <div style={{ padding: 12, flex: 1 }}>
+          {currentView === "chat" && <ChatWindow />}
+          {currentView === "profile" && <ProfilePage />}
+          {currentView === "molecule" && <MoleculeComparison />}
+        </div>
       </MyContext.Provider>
-      
-    </div >
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

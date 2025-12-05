@@ -1,3 +1,4 @@
+/* NEW  */
 @import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
 
 .chat-container {
@@ -6,7 +7,6 @@
   height: 100vh; 
   flex-grow: 1; 
 }
-/* ... existing .navbar and .userIconDiv styles ... */
 
 .navbar {
   width: 100%;
@@ -17,8 +17,6 @@
 
   position: sticky;
   top: 0;
-  /* z-index: 10; 
-  background-color: #1F2035;  */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
@@ -47,15 +45,20 @@
   overflow-y: auto; 
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center initial headings */
-  justify-content: center; /* Center initial headings vertically */
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 0 2rem; 
+  padding: 0 1rem; 
 }
+
+.chat-content.has-messages {
+  justify-content: flex-start;
+}
+
 .heading {
   font-family: "Italiana", sans-serif;
   font-weight: 400;
-  font-size: 64px;
+  font-size: clamp(2rem, 8vw, 4rem);
   color: white;
   margin-top: 0;
   margin-bottom: 30px; 
@@ -64,45 +67,44 @@
 .subheading {
   margin: 0 0 50px 0;
   font-family: 'Arial', sans-serif;
-  font-size: 23px;
+  font-size: clamp(1rem, 3vw, 1.4rem);
   color: white;
-  /* Removed absolute positioning for normal flow */
+  padding: 0 1rem;
 }
 
 /* ------------------- Chat Messages Styling ------------------- */
 
 .message-history {
     width: 100%;
-    /* Max width of the overall chat area to contain messages */
-    max-width: 1000px; 
+    max-width: 1200px; 
     display: flex;
     flex-direction: column;
-    padding: 20px 0; /* Add top/bottom padding to message history */
-    align-items: center; /* Center message wrappers */
-    justify-content: flex-start; /* Start from the top */
-    min-height: 100%; /* Important: Makes sure it fills space for centering on first load */
+    padding: 20px 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 100%;
 }
 
-/* Wrapper to control alignment of the message bubble within the history flow */
+/* Wrapper to control alignment of the message bubble */
 .chat-message-wrapper {
     width: 100%;
-    display: flex; /* Use flex to control alignment inside the wrapper */
-    margin: 10px 0; /* Vertical spacing between messages */
-    padding: 0 20px; /* Horizontal padding for the wrapper */
+    display: flex;
+    margin: 10px 0;
+    padding: 0 1rem;
 }
 
 /* Alignment Classes */
 .user-align {
-    justify-content: flex-end; /* Pushes the message bubble to the right */
+    justify-content: flex-end;
 }
 
 .ai-align {
-    justify-content: flex-start; /* Keeps the message bubble to the left (default) */
+    justify-content: flex-start;
 }
 
 /* Actual Message Bubble Styles */
 .chat-message {
-    max-width: 600px; /* Max width of the bubble itself */
+    max-width: 70%;
     min-width: 100px;
     padding: 12px 18px;
     border-radius: 18px; 
@@ -111,53 +113,68 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.message-header strong {
-    font-size: 0.8rem;
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+/* Remove the message header (no labels) */
+.message-header {
+    display: none;
 }
 
 .message-text {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
     color: white;
+    line-height: 1.5;
 }
 
-/* User (Input) Styles: Darker background, white text */
+/* User (Input) Styles: Dark background, white text */
 .chat-message.user {
-    background-color: #3b3a4a; /* User message background (Dark Gray/Blue) */
+    background-color: #3b3a4a;
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #f0f0f0;
-    /* Optional: Small alignment fix for the bubble text */
-    text-align: right; 
-}
-.chat-message.user .message-header strong {
-    color: #a0a0a0; /* Header color for user */
-    text-align: right;
+    text-align: left;
 }
 
-/* AI (Output) Styles: Dark Blue background, white text, distinct border */
+/* AI (Output) Styles: NO visible background or border */
 .chat-message.ai {
-    background-color: #191929; /* AI message background (Very Dark Blue/Black) */
-    border: 1px solid rgba(60, 145, 244, 0.4); /* Blue accent border */
+    background-color: transparent;
+    border: none;
     color: #e0e0e0;
+    box-shadow: none;
+    padding: 12px 0;
 }
 
-.chat-message.ai .message-header strong {
-    color: #c5d6ff; /* Header color for AI (Light Blue) */
+/* Loading placeholder styling */
+.loading-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: transparent;
 }
 
+.loading-triangle {
+    width: 0;
+    height: 0;
+    border-left: 0.6em solid transparent;
+    border-right: 0.6em solid transparent;
+    border-top: 1em solid #e0e0e0;
+    animation: rotate 1.5s linear infinite;
+}
 
-/* 4. Input Area: Sticky to the bottom */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Input Area: Sticky to the bottom */
 .chat-input-area {
   width: 100%;
   position: sticky;
   bottom: 0;
   z-index: 10;
-  padding: 20px;
-  
-  /* Use a background that blends with the app background when sticky */
-  /* background: linear-gradient(to top, #1F2035 50%, rgba(31, 32, 53, 0.95) 100%); */
+  padding: 20px 1rem;
 }
 
 .chat-bar {
@@ -165,10 +182,9 @@
   flex-direction: row; 
   align-items: center; 
   
-  width: 90%;
+  width: 100%;
   max-width: 800px; 
   height: auto; 
-  /* Center the bar horizontally */
   margin: 0 auto; 
   
   background-color: rgba(0, 0, 0,0.4); 
@@ -187,6 +203,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 0;
+  flex-wrap: wrap;
 }
 
 .icon-button {
@@ -216,48 +233,95 @@
   outline: none;
   
   color: #ececec;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   
   padding: 0 12px;
+  min-width: 0;
 }
 
 .chat-input::placeholder {
   color: #9b9b9b;
   opacity: 1;
 }
-/* --- ADD THIS AT THE END OF Chat.css --- */
 
-/* Keyframes for the dot bounce */
-@keyframes bounce-dot {
-  0%, 80%, 100% {
-    transform: translateY(0);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;
   }
-  40% {
-    transform: translateY(-8px);
+
+  .navbar span {
+    font-size: 1.2rem;
+  }
+
+  .chat-message {
+    max-width: 85%;
+  }
+
+  .chat-bar {
+    padding: 6px 12px;
+  }
+
+  .icon-button {
+    padding: 6px;
+  }
+
+  .left-icons {
+    gap: 4px;
   }
 }
 
-/* Container for the dots */
-.thinking-dots {
+@media (max-width: 480px) {
+  .chat-message {
+    max-width: 90%;
+    padding: 10px 14px;
+  }
+
+  .chat-input-area {
+    padding: 15px 0.5rem;
+  }
+
+  .heading {
+    margin-bottom: 20px;
+  }
+
+  .subheading {
+    margin-bottom: 30px;
+  }
+}
+
+.download-buttons-wrapper {
   display: flex;
-  padding: 5px 0; /* Add a little space */
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 0 1rem;
+  width: 100%;
+  max-width: 1200px;
 }
 
-/* Styling for each individual dot */
-.thinking-dots span {
-  font-size: 1.5rem; /* Make dots a bit bigger */
-  line-height: 1;
-  animation: bounce-dot 1.4s infinite;
-  animation-fill-mode: both;
+.download-link-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  max-width: 300px;
 }
 
-/* Animation delays for each dot */
-.thinking-dots span:nth-child(1) {
-  animation-delay: 0s;
+.download-link-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
-.thinking-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.thinking-dots span:nth-child(3) {
-  animation-delay: 0.4s;
+
+.download-link-button:active {
+  transform: translateY(0);
 }

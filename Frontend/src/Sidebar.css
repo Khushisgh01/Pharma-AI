@@ -1,3 +1,4 @@
+/* Frontend/src/Sidebar.css */
 .sidebar {
     background-color:rgba(14, 0, 13, 0.4);
     color: #b4b4b4;
@@ -197,4 +198,15 @@
 
 .sidebar.collapsed .settings-button span {
     display: none;
+}
+
+/* ========== New: Comparison button specific tweaks ========== */
+/* Uses existing .button styles so it matches other sidebar buttons */
+.comparison-button {
+    /* no additional reset required; inherits .button styles */
+}
+
+/* Optional: subtle icon tweak for the comparison button */
+.comparison-button i {
+    transform: translateY(0); /* placeholder if you want to tweak icon alignment later */
 }
