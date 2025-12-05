@@ -40,17 +40,28 @@ export default function MoleculeComparison() {
     }
   }, [differences, currentDiffIndex]);
 
+  const getSelectedMoleculeNames = () => {
+    return molecules
+      .filter((mol) => selectedMolecules[mol.id])
+      .map((mol) => mol.name);
+  };
+
   const calculateVisibleDifferences = () => {
     const remainingDiffs = differences.slice(currentDiffIndex);
     let count = 0;
     let estimatedHeight = 0;
     
+    // Safety check: ensure we have selected names before calculating
+    const selectedNames = getSelectedMoleculeNames();
+    if (selectedNames.length < 2) return;
+
     for (let i = 0; i < remainingDiffs.length; i++) {
       const diff = remainingDiffs[i];
-      const selectedNames = getSelectedMoleculeNames();
       const mol1Key = selectedNames[0]?.toLowerCase();
       const mol2Key = selectedNames[1]?.toLowerCase();
       
+      if (!mol1Key || !mol2Key) continue;
+
       const content1 = diff[mol1Key] || '';
       const content2 = diff[mol2Key] || '';
       const isChart = content1 === 'chart' || content2 === 'chart';
@@ -80,6 +91,13 @@ export default function MoleculeComparison() {
   const hasPreviousDifferences = currentDiffIndex > 0;
 
   const toggleMolecule = (id) => {
+    // FIX: If user clicks a checkbox while viewing differences, exit view mode immediately.
+    // This prevents the "white screen" crash caused by having < 2 molecules selected while trying to render columns.
+    if (viewDifferences) {
+      setViewDifferences(false);
+      setDifferences([]);
+      setError(null);
+    }
     setSelectedMolecules((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
@@ -255,12 +273,6 @@ export default function MoleculeComparison() {
     }
   };
 
-  const getSelectedMoleculeNames = () => {
-    return molecules
-      .filter((mol) => selectedMolecules[mol.id])
-      .map((mol) => mol.name);
-  };
-
   const renderTextWithReadMore = (text, diffIndex, columnKey) => {
     if (!text || text === 'chart') return text;
     
@@ -414,28 +426,37 @@ export default function MoleculeComparison() {
             </div>
           ) : (
             <>
-              {/* Header */}
-              <div className="table-header">
-                <div className="header-col feature-col">
-                  <span className="header-text">Feature</span>
-                </div>
-                {selectedNames.slice(0, 2).map((name, idx) => (
-                  <div key={idx} className="header-col drug-col">
-                    <div className="drug-header">
-                      <span className="drug-icon">💊</span>
-                      <span className="header-text">{name}</span>
-                    </div>
+              {/* Header - SAFEGUARD ADDED */}
+              {selectedNames.length >= 2 && (
+                <div className="table-header">
+                  <div className="header-col feature-col">
+                    <span className="header-text">Feature</span>
                   </div>
-                ))}
-              </div>
+                  {selectedNames.slice(0, 2).map((name, idx) => (
+                    <div key={idx} className="header-col drug-col">
+                      <div className="drug-header">
+                        <span className="drug-icon">💊</span>
+                        <span className="header-text">{name}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Differences Rows */}
               <div ref={containerRef} className={`differences-container ${differencesFadeDirection}`}>
                 {visibleDifferences.map((diff, idx) => {
                   const actualIndex = currentDiffIndex + idx;
-                  const mol1Key = selectedNames[0].toLowerCase();
-                  const mol2Key = selectedNames[1].toLowerCase();
                   
+                  // CRASH PREVENTION: Ensure we have 2 names before proceeding
+                  if (selectedNames.length < 2) return null;
+
+                  const mol1Key = selectedNames[0]?.toLowerCase();
+                  const mol2Key = selectedNames[1]?.toLowerCase();
+                  
+                  // Double check keys exist
+                  if (!mol1Key || !mol2Key) return null;
+
                   return (
                     <div key={`${actualIndex}-${diff.feature}`} className="table-row">
                       <div className="col feature-col">

@@ -35,6 +35,7 @@ function App() {
   const newChat = () => {
     setMessages([]);   // Reset chat messages
     setPrompt("");     // Clear user input
+    setCurrentView("chat"); // <--- FIX: Ensure we switch back to the chat view
     console.log("New chat session started");
   };
 

@@ -41,10 +41,10 @@
 
 .molecule-page {
   display: flex;
-  gap: 2rem;
-  padding: 2.5rem;
+  gap: 1rem; /* Reduced gap from 2rem */
+  padding: 1rem; /* Reduced padding from 2.5rem */
   min-height: 100vh;
-  background: transparent;
+  background:TX;
   color: #e9e6ef;
   font-family: Roboto, "Open Sans", Helvetica, sans-serif;
   position: relative;
@@ -96,17 +96,18 @@
 
 /* LEFT PANEL */
 .molecule-left {
-  width: 340px;
+  width: 280px; /* Reduced width from 340px */
   min-height: 640px;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem; /* Reduced padding */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
               inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   position: relative;
   z-index: 1;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .panel-glow {
@@ -122,7 +123,7 @@
 
 .title {
   margin: 0 0 1.5rem 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* Slightly smaller title */
   font-weight: 600;
   color: #ffffff;
   display: flex;
@@ -133,7 +134,7 @@
 }
 
 .title-icon {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.4));
 }
 
@@ -147,7 +148,7 @@
 
 .molecule-search {
   width: 100%;
-  padding: 0.875rem 1.25rem;
+  padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(102, 126, 234, 0.15);
   border-radius: 10px;
@@ -236,7 +237,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.875rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
@@ -278,8 +279,8 @@
 }
 
 .molecule-item input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   accent-color: #667eea;
   transition: transform 0.2s ease;
@@ -290,7 +291,7 @@
 }
 
 .molecule-name {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #e9e6ef;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -351,11 +352,11 @@
 .view-differences-button {
   margin-top: 1rem;
   width: 100%;
-  padding: 1rem 1.25rem;
+  padding: 0.875rem 1.25rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   border-radius: 10px;
   border: none;
   cursor: pointer;
@@ -414,7 +415,7 @@
 
 .chart-option-button {
   width: 100%;
-  padding: 0.875rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   background: rgba(118, 75, 162, 0.12);
   border: 1px solid rgba(118, 75, 162, 0.25);
   border-radius: 10px;
@@ -448,13 +449,14 @@
   background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(20px);
   border-radius: 16px;
-  padding: 2.5rem;
+  padding: 1.5rem; /* Reduced padding from 2.5rem */
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
               inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  overflow-x: hidden; /* Prevent parent scroll */
 }
 
 .main-glow {
@@ -536,8 +538,9 @@
 /* Header Row */
 .table-header {
   display: grid;
-  grid-template-columns: 260px 1fr 1fr;
-  gap: 1.5rem;
+  /* CHANGED: Reduced feature column and gap */
+  grid-template-columns: 140px 1fr 1fr; 
+  gap: 1rem;
   align-items: center;
   padding-bottom: 1.25rem;
   border-bottom: 2px solid rgba(102, 126, 234, 0.2);
@@ -571,11 +574,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   background: rgba(102, 126, 234, 0.1);
   border-radius: 10px;
   border: 1px solid rgba(102, 126, 234, 0.2);
   transition: all 0.3s ease;
+  width: 100%;
+  justify-content: center;
 }
 
 .drug-header:hover {
@@ -585,11 +590,14 @@
 }
 
 .drug-icon {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .header-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Differences Container with Animation */
@@ -598,7 +606,9 @@
   flex-direction: column;
   gap: 1.5rem;
   max-height: 600px;
-  overflow: visible;
+  overflow-y: auto; /* Allow vertical scroll if needed */
+  overflow-x: hidden;
+  padding-right: 5px; /* Space for scrollbar */
 }
 
 .differences-container.fade-out {
@@ -612,8 +622,9 @@
 /* Table Rows */
 .table-row {
   display: grid;
-  grid-template-columns: 260px 1fr 1fr;
-  gap: 1.5rem;
+  /* CHANGED: Match header columns */
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 1rem;
   align-items: start;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -636,27 +647,32 @@
 
 .feature-label {
   padding: 1rem 0;
+  font-size: 0.9rem;
 }
 
 /* Content Columns */
 .content-col {
   display: flex;
   align-items: stretch;
+  min-width: 0; /* Important for grid item wrapping */
 }
 
 .content-card {
   width: 100%;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  line-height: 1.7;
-  font-size: 0.9rem;
+  line-height: 1.6;
+  font-size: 0.85rem;
   color: #e6e3ea;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease,QH border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  /* CRITICAL FIX for wrapping */
+  word-break: break-word; 
+  overflow-wrap: break-word;
 }
 
 .content-card::before {
@@ -688,12 +704,12 @@
 /* Read More Button */
 .read-more-btn {
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   padding: 0;
   background: transparent;
   border: none;
   color: #8b9aff;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -754,7 +770,7 @@
 /* Difference Navigation Arrows */
 .diff-navigation {
   position: absolute;
-  right: -1.5rem;
+  right: -1rem;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -763,13 +779,13 @@
 }
 
 .diff-arrow {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: rgba(102, 126, 234, 0.15);
   border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: 50%;
   color: #667eea;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -800,28 +816,28 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .molecule-page {
-    padding: 2rem;
+    padding: 1rem;
   }
   
   .molecule-left {
-    width: 300px;
+    width: 240px;
   }
   
   .table-header,
   .table-row {
-    grid-template-columns: 220px 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 0.75rem;
   }
   
   .diff-navigation {
-    right: -1rem;
+    right: -0.5rem;
   }
 }
 
 @media (max-width: 900px) {
   .molecule-page {
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .molecule-left {
@@ -848,21 +864,25 @@
 }
 
 /* Scrollbar Styling */
+.differences-container::-webkit-scrollbar,
 .molecule-right::-webkit-scrollbar {
   width: 8px;
 }
 
+.differences-container::-webkit-scrollbar-track,
 .molecule-right::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.02);
   border-radius: 10px;
 }
 
+.differences-container::-webkit-scrollbar-thumb,
 .molecule-right::-webkit-scrollbar-thumb {
   background: rgba(102, 126, 234, 0.3);
   border-radius: 10px;
   transition: background 0.3s ease;
 }
 
+.differences-container::-webkit-scrollbar-thumb:hover,
 .molecule-right::-webkit-scrollbar-thumb:hover {
   background: rgba(102, 126, 234, 0.5);
 }

@@ -176,14 +176,17 @@
     gap: 10px; 
 }
 
-.settings-button {
+/* Combined styling for consistent alignment of footer buttons */
+.settings-button,
+.comparison-button {
     border: none;
     background: transparent !important;
     padding: 5px; 
     margin: 0;
 }
 
-.settings-button:hover {
+.settings-button:hover,
+.comparison-button:hover {
     background-color: rgba(255, 255, 255, 0.05) !important;
     box-shadow: none;
     transform: none;
@@ -192,21 +195,13 @@
 .sidebar.collapsed .sign p {
     display: none;
 }
-.sidebar.collapsed .settings-button {
+
+.sidebar.collapsed .settings-button,
+.sidebar.collapsed .comparison-button {
     padding: 5px; 
 }
 
-.sidebar.collapsed .settings-button span {
+.sidebar.collapsed .settings-button span,
+.sidebar.collapsed .comparison-button span {
     display: none;
-}
-
-/* ========== New: Comparison button specific tweaks ========== */
-/* Uses existing .button styles so it matches other sidebar buttons */
-.comparison-button {
-    /* no additional reset required; inherits .button styles */
-}
-
-/* Optional: subtle icon tweak for the comparison button */
-.comparison-button i {
-    transform: translateY(0); /* placeholder if you want to tweak icon alignment later */
 }
