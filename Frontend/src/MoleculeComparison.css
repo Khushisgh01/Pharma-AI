@@ -55,16 +55,15 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  min-height: 100vh;
-  /* REVERTED: Changed back to deep dark purple base to restore purplish-pink theme */
+  height: 100vh; /* Fixed viewport height to prevent body scroll */
   background: #1a1a2e; 
   color: #e9e6ef;
   font-family: Roboto, "Open Sans", Helvetica, sans-serif;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Prevents outer page scrolling */
 }
 
-/* Ambient Background Effects - These will now be visible against the dark background */
+/* Ambient Background Effects */
 .bg-gradient-1 {
   position: absolute;
   top: -20%;
@@ -85,7 +84,7 @@
   right: -5%;
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(118, 75, 162, 0.08) 0%, transparent 70%); /* Slightly increased opacity for purple */
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.08) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(60px);
   pointer-events: none;
@@ -107,10 +106,12 @@
   z-index: 0;
 }
 
-/* LEFT PANEL */
+/* LEFT PANEL - FIXED HEIGHT */
 .molecule-left {
   width: 280px;
-  min-height: 640px;
+  /* UPDATED: Fixed height matches viewport minus padding */
+  height: calc(100vh - 2rem); 
+  min-height: 500px;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
   border-radius: 16px;
@@ -159,6 +160,7 @@
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .molecule-search {
@@ -172,6 +174,7 @@
   outline: none;
   transition: all 0.3s ease;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .molecule-search::placeholder {
@@ -225,13 +228,17 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
   margin: 1.5rem 0;
+  flex-shrink: 0;
 }
 
 /* Molecule List with Pagination */
 .molecule-list-container {
   position: relative;
   margin-bottom: 1.5rem;
-  flex: 1;
+  flex: 1; /* Occupy remaining space */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hide internal overflows */
 }
 
 .molecule-list-container.fade-out .molecule-list {
@@ -246,7 +253,17 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 280px;
+  /* Allow scrolling inside list if it gets too long, instead of page scroll */
+  overflow-y: auto; 
+  padding-right: 4px;
+}
+
+.molecule-list::-webkit-scrollbar {
+  width: 4px;
+}
+.molecule-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
 }
 
 .molecule-item {
@@ -262,6 +279,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .molecule-item::before {
@@ -343,6 +361,7 @@
   justify-content: center;
   transition: all 0.3s ease;
   margin: 0.5rem 0;
+  flex-shrink: 0;
 }
 
 .pagination-arrow:hover {
@@ -369,17 +388,24 @@
   display: flex;
   width: 100%;
   position: relative;
-  margin-top: auto;
+  margin-top: auto; /* Pushes to the very bottom */
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   border-radius: 10px;
   z-index: 50;
+  /* UPDATED: Fixed height to prevent uneven footing */
+  height: 48px; 
+  align-items: stretch; /* Ensures children fill the height */
+  flex-shrink: 0; /* Prevent compression */
 }
 
 .view-differences-button {
   flex: 1;
-  width: auto; 
-  padding: 0.875rem 1.25rem;
-  /* Gradient kept as Blue to Purple for the "Purplish Pink" theme */
+  /* UPDATED: Flex centering instead of padding for alignment */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; 
+  
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   font-weight: 600;
@@ -392,6 +418,7 @@
   position: relative;
   overflow: hidden;
   z-index: 2;
+  box-sizing: border-box; /* Ensure borders don't affect height */
 }
 
 .view-differences-button::before {
@@ -426,18 +453,21 @@
 /* Dropdown Toggle Arrow Button */
 .dropdown-toggle-button {
   width: 48px;
+  /* UPDATED: Flex centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   border: none;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0 10px 10px 0;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 0.3s ease;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .dropdown-toggle-button:hover:not(.disabled) {
@@ -513,7 +543,8 @@
 /* RIGHT MAIN AREA */
 .molecule-right {
   flex: 1;
-  min-height: 640px;
+  /* UPDATED: Match sidebar fixed height */
+  height: calc(100vh - 2rem);
   background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(20px);
   border-radius: 16px;
@@ -524,6 +555,7 @@
   z-index: 1;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
               inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  overflow-y: auto; /* Internal scrolling only */
   overflow-x: hidden;
 }
 
@@ -555,7 +587,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
+  height: 100%; /* Center in full height */
   gap: 1.5rem;
   color: #9b9ba5;
   animation: fadeIn 0.5s ease-out;
@@ -672,9 +704,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* Removed max-height here as scrolling is handled by parent .molecule-right */
   padding-right: 5px;
 }
 
@@ -903,10 +933,18 @@
   .molecule-page {
     flex-direction: column;
     padding: 1rem;
+    height: auto;
+    overflow: visible;
   }
   
   .molecule-left {
     width: 100%;
+    height: auto;
+  }
+  
+  .molecule-right {
+    height: auto;
+    min-height: 400px;
   }
   
   .table-header,
@@ -929,25 +967,21 @@
 }
 
 /* Scrollbar Styling */
-.differences-container::-webkit-scrollbar,
 .molecule-right::-webkit-scrollbar {
   width: 8px;
 }
 
-.differences-container::-webkit-scrollbar-track,
 .molecule-right::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.02);
   border-radius: 10px;
 }
 
-.differences-container::-webkit-scrollbar-thumb,
 .molecule-right::-webkit-scrollbar-thumb {
   background: rgba(102, 126, 234, 0.3);
   border-radius: 10px;
   transition: background 0.3s ease;
 }
 
-.differences-container::-webkit-scrollbar-thumb:hover,
 .molecule-right::-webkit-scrollbar-thumb:hover {
   background: rgba(102, 126, 234, 0.5);
 }
