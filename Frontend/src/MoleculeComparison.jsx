@@ -32,12 +32,12 @@ export default function MoleculeComparison() {
   
   // View States
   const [viewDifferences, setViewDifferences] = useState(false);
-  const [visualizationMode, setVisualizationMode] = useState("text"); // 'text', 'bar', 'radar'
-  const [showDropdown, setShowDropdown] = useState(false); // Dropdown state
+  const [visualizationMode, setVisualizationMode] = useState("text");
+  const [showDropdown, setShowDropdown] = useState(false);
   
   // Data States
   const [differences, setDifferences] = useState([]);
-  const [rawData, setRawData] = useState(null); // Store raw API data for charts
+  const [rawData, setRawData] = useState(null);
   
   // Pagination & Animation States
   const [currentPage, setCurrentPage] = useState(0);
@@ -196,11 +196,16 @@ export default function MoleculeComparison() {
     try {
       const response = await fetch('http://localhost:8000/api/compare-molecules/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ molecules: selectedNames })
       });
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+      }
 
       const data = await response.json();
       
@@ -502,7 +507,6 @@ export default function MoleculeComparison() {
           {currentPage < totalPages - 1 && <button className="pagination-arrow arrow-down" onClick={handleNextPage}><span>▼</span></button>}
         </div>
 
-        {/* REPLACED SINGLE BUTTON WITH SPLIT DROPDOWN GROUP */}
         <div className="view-diff-group">
           <button 
             className={`view-differences-button main-btn ${!canViewDifferences ? "disabled" : ""}`} 

@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar.jsx";
 import ChatWindow from "./ChatWindow.jsx";
 import ProfilePage from "./ProfilePage.jsx";
 import MoleculeComparison from "./MoleculeComparison.jsx";
+import CollaborationWorkspace from "./CollaborationWorkspace.jsx";
 
 import { MyContext } from "./MyContext.jsx";
 
@@ -74,6 +75,7 @@ function App() {
           {currentView === "chat" && <ChatWindow />}
           {currentView === "profile" && <ProfilePage />}
           {currentView === "molecule" && <MoleculeComparison />}
+          {currentView === "collaboration" && <CollaborationWorkspace />}
         </div>
       </MyContext.Provider>
     </div>

@@ -57,6 +57,20 @@ function Sidebar() {
           {!isSidebarCollapsed && <span>Comparison Dashboard</span>}
         </button>
 
+        <button
+      className="button collaboration-button"
+      onClick={() => {
+        if (typeof setCurrentView === "function") {
+          setCurrentView("collaboration"); // <-- Set new view state
+        } else {
+          console.warn("setCurrentView not available in context");
+        }
+      }}
+    >
+      <i className="fa-solid fa-users" aria-hidden></i> {/* Use a relevant icon */}
+      {!isSidebarCollapsed && <span>Collaboration</span>}
+    </button>
+
         {/* Keep your existing settings button below */}
         <button className="button settings-button">
           <i className="fa-solid fa-gear"></i>

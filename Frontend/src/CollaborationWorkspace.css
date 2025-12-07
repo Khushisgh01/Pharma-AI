@@ -1,0 +1,418 @@
+/* Frontend/src/CollaborationWorkspace.css */
+
+.workspace-page-container {
+    display: grid;
+    /* Define the main grid layout: Header & Tabs span all columns. 
+       Content is split into a main area (2fr) and a discussions sidebar (1fr) 
+    */
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem 1rem 1rem;
+    height: calc(100vh - 24px); /* Account for padding from App.jsx parent */
+    overflow: hidden; 
+    position: relative;
+    z-index: 1; 
+}
+
+/* ------------------- Header and Tabs ------------------- */
+
+.workspace-header {
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-left h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-teams-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.search-teams-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Re-use back-button and userIconDiv styles from other components */
+
+.workspace-tabs {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 30px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.workspace-tabs span {
+    font-size: 1rem;
+    color: #b4b4b4;
+    cursor: pointer;
+    padding: 0 5px 8px 5px;
+    transition: color 0.2s, border-bottom 0.2s;
+}
+
+.workspace-tabs span.active {
+    color: #fff;
+    font-weight: 600;
+    border-bottom: 2px solid #667eea;
+}
+
+/* ------------------- Content Grid and Cards ------------------- */
+
+.workspace-content-grid {
+    grid-column: 1 / -1; /* Reset grid to manage internal layout below */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    overflow-y: hidden;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
+    overflow-y: auto; /* Allow scrolling for the main dashboard content */
+    padding-right: 1rem; /* Space for scrollbar */
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #e9e6ef;
+}
+
+/* Activity Card spans two rows */
+.activity-card {
+    grid-row: 1 / 3;
+}
+
+/* Task Progress & Pending Approvals are single rows/columns */
+.progress-card {
+    min-height: 220px;
+}
+.approvals-card {
+    min-height: 220px;
+}
+
+/* Activity List (Timeline) */
+.activity-list {
+    position: relative;
+    padding-left: 20px;
+    flex-grow: 1;
+}
+
+.activity-item {
+    display: flex;
+    margin-bottom: 25px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.activity-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    left: -6px;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 0 10px var(--dot-color);
+}
+
+.activity-line {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: -25px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.activity-item:last-child .activity-line {
+    display: none;
+}
+
+.activity-text p {
+    margin: 0 0 5px 0;
+    font-size: 0.85rem;
+    color: #e9e6ef;
+}
+
+.activity-text small {
+    font-size: 0.75rem;
+    color: #9b9ba5;
+    display: block;
+}
+
+/* Approvals List */
+.approvals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.approval-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.team-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #667eea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.approval-item p {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.approval-item small {
+    color: #9b9ba5;
+    font-size: 0.8rem;
+}
+
+.approval-item i {
+    color: #667eea;
+    font-size: 0.8rem;
+}
+
+/* Document Repository */
+.repo-folders {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    justify-content: space-around;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.folder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.folder i {
+    font-size: 3rem;
+    color: #ff5656;
+}
+
+.folder span {
+    font-size: 0.9rem;
+}
+
+.folder .count {
+    font-size: 0.75rem;
+    color: #ffc658;
+    background: rgba(255, 198, 88, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ------------------- Discussions Thread (Right Column) ------------------- */
+
+.discussions-thread-container {
+    grid-column: 2 / 3;
+    /* Simulate the blue-ish glass effect */
+    background: rgba(135, 171, 237, 0.1); 
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.thread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+}
+
+.thread-header h2 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.thread-header i {
+    color: #b4b4b4;
+    cursor: pointer;
+}
+
+.thread-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-wrapper {
+    display: flex;
+    margin: 5px 0;
+    gap: 8px;
+}
+
+.message-wrapper.right {
+    justify-content: flex-end;
+}
+
+.message-wrapper.left {
+    justify-content: flex-start;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #5c628e; /* Placeholder color for user avatar */
+    flex-shrink: 0;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 12px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message-bubble.right {
+    /* Sender's message style: Blue Gradient */
+    background: linear-gradient(145deg, #4c689d, #667eea);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.message-bubble.left {
+    /* Collaborator/Receiver's message style: Light background */
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e9e6ef;
+    border-bottom-left-radius: 2px;
+}
+
+.message-bubble p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.message-bubble small {
+    display: block;
+    text-align: right;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.thread-input-form {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.thread-input-form input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ececec;
+    padding: 5px 10px;
+}
+
+.send-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+.send-button:hover {
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+/* Scrollbar Styling for Content */
+.dashboard-cards::-webkit-scrollbar,
+.thread-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-cards::-webkit-scrollbar-track,
+.thread-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.dashboard-cards::-webkit-scrollbar-thumb,
+.thread-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+}
