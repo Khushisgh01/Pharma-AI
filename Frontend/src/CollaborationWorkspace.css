@@ -133,6 +133,19 @@
 .approvals-card {
     min-height: 220px;
 }
+.progress-card svg g .recharts-bar-rectangle:hover {
+    /* Prevents the default darkening/opacity change on the hovered bar */
+    opacity: 1 !important; 
+    /* Ensures the bar retains its original color */
+    fill: #ffc658 !important; 
+}
+
+/* * If the highlight is a vertical strip behind the tooltip, it's likely a custom Cursor. 
+* Since the JSX doesn't explicitly define one, this targets the bar elements:
+*/
+.recharts-bar:hover {
+    opacity: 1 !important;
+}
 
 /* Activity List (Timeline) */
 .activity-list {
@@ -186,10 +199,15 @@
 }
 
 /* Approvals List */
+
 .approvals-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto; 
+    flex-grow: 1; 
+    /* NEW: Add padding to separate content from scrollbar */
+    padding-right: 10px; 
 }
 
 .approval-item {
@@ -401,18 +419,24 @@
 
 /* Scrollbar Styling for Content */
 .dashboard-cards::-webkit-scrollbar,
-.thread-content::-webkit-scrollbar {
-  width: 8px;
+.thread-content::-webkit-scrollbar,
+/* FIX: Add approvals-list to scrollbar styling */
+.approvals-list::-webkit-scrollbar {
+    width: 8px;
 }
 
 .dashboard-cards::-webkit-scrollbar-track,
-.thread-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
+.thread-content::-webkit-scrollbar-track,
+/* FIX: Add approvals-list to scrollbar styling */
+.approvals-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
 }
 
 .dashboard-cards::-webkit-scrollbar-thumb,
-.thread-content::-webkit-scrollbar-thumb {
-  background: rgba(102, 126, 234, 0.3);
-  border-radius: 10px;
+.thread-content::-webkit-scrollbar-thumb,
+/* FIX: Add approvals-list to scrollbar styling */
+.approvals-list::-webkit-scrollbar-thumb {
+    background: rgba(246, 246, 248, 0.3);
+    border-radius: 10px;
 }
